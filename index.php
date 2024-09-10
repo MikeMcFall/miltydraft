@@ -358,7 +358,6 @@
 
                                     <input type="number" id="max_total" required min="0" name="max_total" step="0.5" value="13" />
                                 </div>
-
                                 <div class="input">
                                     <label for="custom_slices">
                                         Custom Slices
@@ -372,6 +371,20 @@
                                         <img class="slice-help" src="<?= url('img/slice-layout.png') ?>" /><br /> so the first slice listed will be to positioned top left of the home system, the second one top, third top right,...
                                     </span>
                                 </div>
+
+                            <h4>Map Setup</h4>
+                                    <p>
+                                        For 4 players, do you want to use hyperlanes or RAW setup?
+                                    </p>
+                                <div class="input">
+                                    <label for="raw_four_map_0" class="check">
+                                        <input type="radio" name="raw_four_map" value="false" id="raw_four_map_0" checked /> Use hyperlanes (Shown above 3 Blue, 2 Red per slice)
+                                    </label>
+                                    <label for="raw_four_map_1" class="check">
+                                        <input type="radio" name="raw_four_map" value="true" id="raw_four_map_1" /> Use RAW setup (5 Blue, 3 Red per slice)
+                                    </label>
+                                </div>
+
 
                                 <h4>Custom Factions</h4>
                                 <div class="input">
