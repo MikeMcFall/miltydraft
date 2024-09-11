@@ -76,13 +76,26 @@ class Generator
         for ($i = 0; $i < $config->num_slices; $i++) {
             // grab some tiles
 
-            $slice = new Slice([
-                $tiles['high'][$i],
-                $tiles['mid'][$i],
-                $tiles['low'][$i],
-                $tiles['red'][2 * $i],
-                $tiles['red'][(2 * $i) + 1],
-            ]);
+            if ($config->raw_four_map) {
+                $slice = new Slice([
+                    $tiles['high'][5 * $i],
+                    $tiles['high'][5 * $i + 1],
+                    $tiles['high'][5 * $i + 2],
+                    $tiles['high'][5 * $i + 3],
+                    $tiles['high'][5 * $i + 4],
+                    $tiles['red'][3 * $i],
+                    $tiles['red'][(3 * $i) + 1],
+                    $tiles['red'][(3 * $i) + 2],
+                ]);
+            } else {
+                $slice = new Slice([
+                    $tiles['high'][$i],
+                    $tiles['mid'][$i],
+                    $tiles['low'][$i],
+                    $tiles['red'][2 * $i],
+                    $tiles['red'][(2 * $i) + 1],
+                ]);
+            }
 
             if (!$slice->validate($config)) {
                 return self::slicesFromTiles($tiles, $config, $previous_tries + 1);
@@ -117,20 +130,27 @@ class Generator
             return_error("No valid selection");
         }
 
-        shuffle($tiles['high']);
-        shuffle($tiles['mid']);
-        shuffle($tiles['low']);
         shuffle($tiles['red']);
 
-        $selection = [
-            'high' => array_slice($tiles["high"], 0, $config->num_slices),
-            'mid' => array_slice($tiles["mid"], 0, $config->num_slices),
-            'low' => array_slice($tiles["low"], 0, $config->num_slices),
-            'red' => array_slice($tiles["red"], 0, $config->num_slices * 2),
-        ];
-
-
-        $all = array_merge($selection["high"], $selection["mid"], $selection["low"], $selection["red"]);
+        if ($config->raw_four_map) {
+            shuffle(array_merge($tiles['high'], $tiles['mid'], $tiles['low']));
+            $selection = [
+                'high' => array_slice($tiles["high"], 0, 20),
+                'red' => array_slice($tiles["red"], 0, 12),
+            ];
+            $all = array_merge($selection["high"], $selection["red"]);
+        } else {
+            shuffle($tiles['high']);
+            shuffle($tiles['mid']);
+            shuffle($tiles['low']);
+            $selection = [
+                'high' => array_slice($tiles["high"], 0, $config->num_slices),
+                'mid' => array_slice($tiles["mid"], 0, $config->num_slices),
+                'low' => array_slice($tiles["low"], 0, $config->num_slices),
+                'red' => array_slice($tiles["red"], 0, $config->num_slices * 2),
+            ];
+            $all = array_merge($selection["high"], $selection["mid"], $selection["low"], $selection["red"]);
+        }
 
         // check if the wormhole/legendary count is high enough
         $counts = Tile::countSpecials($all);
