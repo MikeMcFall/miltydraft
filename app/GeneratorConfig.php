@@ -16,6 +16,7 @@ class GeneratorConfig
     public $include_discordant;
     public $include_discordantexp;
     public $preset_draft_order;
+    public $raw_four_map;
 
     public $min_wormholes;
     public $min_legendaries;
@@ -114,8 +115,8 @@ class GeneratorConfig
         if (!$this->include_pok && $this->num_slices > 5) return_error('Can only draft up to 5 slices without PoK. (And by extension you can only do drafts up to 5 players)');
         if (!$this->include_ds_tiles && $this->num_slices > 9) return_error('Can only draft up to 9 slices without DS+ Tiles.');
         if (count($this->players) < 3) return_error('Please enter at least 3 players');
-        if ($this->num_factions < count($this->players)) return_error("Can't have less factions than players");
-        if ($this->num_slices < count($this->players)) return_error("Can't have less slices than players");
+        if ($this->num_factions < count($this->players)) return_error("Can't have fewer factions than players");
+        if ($this->num_slices < count($this->players)) return_error("Can't have fewer slices than players");
         if ($this->maximum_optimal_total < $this->minimum_optimal_total) return_error("Maximum optimal can't be less than minimum");
         // Must include at least 1 of base, pok, discordant, or discordant expansion to have enough factions to use
         if (!($this->include_base_factions || $this->include_pok_factions || $this->include_discordant || $this->include_discordantexp)) return_error("Not enough factions selected.");
@@ -123,7 +124,8 @@ class GeneratorConfig
         if ($this->custom_slices != null) {
             if (count($this->custom_slices) < count($this->players)) return_error("Not enough custom slices for number of players");
             foreach ($this->custom_slices as $s) {
-                if (count($s) != 5) return_error('Some of the custom slices have the wrong number of tiles. (each should have five)');
+                if (count($s) != 5 && !$this->raw_four_map) return_error('Some of the custom slices have the wrong number of tiles. (each should have five)');
+                else if (count($s) != 8 && $this->raw_four_map) return_error('Some of the custom slices have the wrong number of tiles. (each should have eight for RAW 4 player setup)');
             }
         }
     }

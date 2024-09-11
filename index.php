@@ -374,7 +374,7 @@
 
                             <h4>Map Setup</h4>
                                     <p>
-                                        For 4 players, do you want to use hyperlanes or RAW setup?
+                                        For 4 players, do you want to use hyperlanes or RAW setup? (If you use the RAW option, you should likely increase the Minimum/Maximum Optimal Totals above)
                                     </p>
                                 <div class="input">
                                     <label for="raw_four_map_0" class="check">
