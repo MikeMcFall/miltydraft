@@ -91,7 +91,12 @@ class Slice
         return true;
     }
 
-    function arrange($previous_tries = 0)
+    /**
+     * @param GeneratorConfig $config
+     * @param int previous_tries
+     * @return bool
+     */
+    function arrange(GeneratorConfig $config, $previous_tries = 0)
     {
         // miltydraft.com only shuffles it 12 times max, no idea why but we're gonna assume they have a reason
         if ($previous_tries > 12) {
@@ -107,7 +112,11 @@ class Slice
         //      H
         // so for example, tile #1 neighbours #0, #3 and #4. #2 only neighbours #1
 
-        $neighbours = [[0, 1], [0, 3], [1, 2], [1, 3], [1, 4], [3, 4]];
+        if ($config->raw_four_map) {
+            $neighbours = [[0, 1], [0, 4], [1, 2], [1, 4], [1, 5], [1, 6], [2, 3], [2, 6], [2, 7], [3, 7], [4, 5], [5, 6]];
+        } else {
+            $neighbours = [[0, 1], [0, 3], [1, 2], [1, 3], [1, 4], [3, 4]];
+        }
 
         foreach ($neighbours as $edge) {
             // can't have two neighbouring anomalies

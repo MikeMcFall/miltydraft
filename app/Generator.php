@@ -88,7 +88,7 @@ class Generator
                 return self::slicesFromTiles($tiles, $config, $previous_tries + 1);
             }
 
-            if ($slice->arrange() == false) {
+            if ($slice->arrange($config) == false) {
                 // impossible slice, retry
                 return self::slicesFromTiles($tiles, $config, $previous_tries + 1);
             }
