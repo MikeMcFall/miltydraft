@@ -524,6 +524,80 @@ h4:first-child {
   top: 1.73em;
   left: 0;
 }
+#draft .slice-graph-raw {
+  font-size: 3vw;
+  width: 6.5em;
+  height: 6.5em;
+  position: relative;
+}
+@media (max-width: 768px) {
+  #draft .slice-graph-raw {
+    font-size: 7vw;
+  }
+}
+@media (min-width: 1320px) {
+  #draft .slice-graph-raw {
+    font-size: 53px;
+  }
+}
+#draft .slice-graph-raw img {
+  width: 2em;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+#draft .slice-graph-raw img:hover + .zoom {
+  opacity: 1;
+  z-index: 999;
+}
+#draft .slice-graph-raw .slice-info {
+  text-align: center;
+}
+#draft .slice-graph-raw .wrap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+#draft .slice-graph-raw .zoom {
+  opacity: 0;
+  pointer-events: none;
+  width: 300px;
+}
+#draft .slice-graph-raw .tile-0 {
+  top: 0.36em;
+  left: -2.25em;
+}
+#draft .slice-graph-raw .tile-1 {
+  top: -0.5em;
+  left: -0.75em;
+}
+#draft .slice-graph-raw .tile-2 {
+  top: 0.36em;
+  left: 0.75em;
+}
+#draft .slice-graph-raw .tile-3 {
+  top: -1.36em;
+  left: -2.25em;
+}
+#draft .slice-graph-raw .tile-4 {
+  top: -2.23em;
+  left: -0.75em;
+}
+#draft .slice-graph-raw .tile-5 {
+  top: -1.36em;
+  left: 0.75em;
+}
+#draft .slice-graph-raw .tile-6 {
+  top: 2.08em;
+  left: 0.75em;
+}
+#draft .slice-graph-raw .tile-7 {
+  top: 1.23em;
+  left: 2.25em;
+}
+#draft .slice-graph-raw .tile-h {
+  top: 1.23em;
+  left: -0.75em;
+}
 #draft .unclaim, #draft .claim {
   display: none;
 }

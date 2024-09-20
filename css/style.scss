@@ -564,6 +564,92 @@ h4 {
         }
     }
 
+.slice-graph-raw {
+        font-size: 3vw;
+
+        width: 6.5em;
+        height: 6.5em;
+
+        position: relative;
+
+        @media #{$max-sm} {
+            font-size: 7vw;
+        }
+
+
+        @media #{$min-xl} {
+            font-size: 53px;
+        }
+
+
+        img {
+            width: 2em;
+            position: absolute;
+            transform: translate(-50%, -50%);
+
+            &:hover + .zoom {
+                opacity: 1;
+                z-index: 999;
+            }
+        }
+
+        .slice-info {
+            text-align: center;
+        }
+
+
+        .wrap {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+        }
+
+        .zoom {
+            opacity: 0;
+            pointer-events: none;
+            width: 300px;
+        }
+
+        .tile-0 {
+            // -1, 0
+            top: 0.36em;
+            left: -2.25em;
+        }
+        .tile-1 {
+            top: -0.5em;
+            left: -0.75em;
+        }
+        .tile-2 {
+            top: 0.36em;
+            left: 0.75em;
+        }
+        .tile-3 {
+
+            top: -1.36em;
+            left: -2.25em;
+        }
+        .tile-4 {
+            top: -2.23em;
+            left: -0.75em;
+        }
+        .tile-5 {
+            top: -1.36em;
+            left: 0.75em;
+        }
+        .tile-6 {
+            top: 2.08em;
+            left: 0.75em;
+        }
+        .tile-7 {
+            top: 1.23em;
+            left: 2.25em;
+        }
+        .tile-h {
+            top: 1.23em;
+            left: -0.75em;
+        }
+    }
+
     .unclaim, .claim {
         display: none;
     }

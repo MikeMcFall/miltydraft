@@ -63,6 +63,8 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
                     </div>
                 </div>
             </nav>
+
+            <?php $config = $draft->config(); ?>
             <div class="tab active" id="draft">
                 <div class="content-wrap">
                     <?php if ($draft == null || $draft == false) : ?>
@@ -126,15 +128,19 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
                             <div class="options">
                                 <?php foreach ($draft->slices() as $slice_id => $slice) : ?>
                                     <div class="slice option" data-slice="<?= $slice_id ?>">
-                                        <div class="slice-graph">
-                                            <div class="wrap">
-                                                <?php foreach ($slice['tiles'] as $i => $tile) : ?>
-                                                    <img class="tile-<?= $i ?>" src="<?= url('img/tiles/ST_' . $tile . '.png') ?>" />
-                                                    <img class="zoom tile-<?= $i ?>" src="<?= url('img/tiles/ST_' . $tile . '.png') ?>" />
-                                                <?php endforeach; ?>
-                                                <img class="tile-h" src="<?= url('img/tiles/ST_0.png') ?>" />
+                                        <?php if ($config->raw_four_map) : ?>
+                                            <div class="slice-graph-raw">
+                                        <?php else : ?>
+                                            <div class="slice-graph">
+                                        <?php endif; ?>
+                                                <div class="wrap">
+                                                    <?php foreach ($slice['tiles'] as $i => $tile) : ?>
+                                                        <img class="tile-<?= $i ?>" src="<?= url('img/tiles/ST_' . $tile . '.png') ?>" />
+                                                        <img class="zoom tile-<?= $i ?>" src="<?= url('img/tiles/ST_' . $tile . '.png') ?>" />
+                                                    <?php endforeach; ?>
+                                                    <img class="tile-h" src="<?= url('img/tiles/ST_0.png') ?>" />
+                                                </div>
                                             </div>
-                                        </div>
 
                                         <div class="slice-info">
                                             <h4>Slice <?= $slice_id + 1 ?></h4>
@@ -212,8 +218,6 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
                     <?php endif; ?>
                 </div>
             </div>
-
-            <?php $config = $draft->config(); ?>
             <div class="tab" id="regen">
                 <div class="content-wrap">
                     <?php if (empty($draft->log())) : ?>
