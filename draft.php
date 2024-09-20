@@ -295,7 +295,7 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
                     </p>
 
                     <p>
-                        <label>Use RAW 4-player map:</label> <strong><?= $config->raw_four_map ?></strong>
+                        <label>Use RAW 4-player map:</label> <strong><?= e($config->raw_four_map, 'yes', 'no') ?></strong>
                     </p>
 
                     <p>
