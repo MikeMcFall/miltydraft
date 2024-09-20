@@ -291,6 +291,10 @@ $faction_data = json_decode(file_get_contents('data/factions.json'), true);
                     </p>
 
                     <p>
+                        <label>Use RAW 4-player map:</label> <strong><?= $config->raw_four_map ?></strong>
+                    </p>
+
+                    <p>
                         <label>Custom Factions:</label> <strong>
                             <?php if ($config->custom_factions != null) : ?>
                                 <?= implode(', ', $config->custom_factions) ?>
