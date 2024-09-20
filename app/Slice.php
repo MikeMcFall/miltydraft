@@ -110,10 +110,18 @@ class Slice
         //      1
         //  0       2
         //      H
+        //
         // so for example, tile #1 neighbours #0, #3 and #4. #2 only neighbours #1
+        // 4 player RAW setup
+        //      4
+        //  3       5
+        //      1
+        //  0       2
+        //      H       7
+        //          6
 
         if ($config->raw_four_map) {
-            $neighbours = [[0, 1], [0, 4], [1, 2], [1, 4], [1, 5], [1, 6], [2, 3], [2, 6], [2, 7], [3, 7], [4, 5], [5, 6]];
+            $neighbours = [[0, 1], [0, 3], [1, 2], [1, 3], [1, 4], [1, 5], [2, 5], [2, 6], [2, 7], [3, 4], [4, 5], [6, 7]];
         } else {
             $neighbours = [[0, 1], [0, 3], [1, 2], [1, 3], [1, 4], [3, 4]];
         }
@@ -121,7 +129,7 @@ class Slice
         foreach ($neighbours as $edge) {
             // can't have two neighbouring anomalies
             if ($this->tiles[$edge[0]]->hasAnomaly() && $this->tiles[$edge[1]]->hasAnomaly()) {
-                return $this->arrange($previous_tries + 1);
+                return $this->arrange($config, $previous_tries + 1);
             }
         }
 
