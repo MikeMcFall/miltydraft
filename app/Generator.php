@@ -69,8 +69,6 @@ class Generator
 
         // reshuffle
         shuffle($tiles["high"]);
-        shuffle($tiles["mid"]);
-        shuffle($tiles["low"]);
         shuffle($tiles["red"]);
 
         for ($i = 0; $i < $config->num_slices; $i++) {
@@ -88,6 +86,8 @@ class Generator
                     $tiles['red'][(3 * $i) + 2],
                 ]);
             } else {
+                shuffle($tiles["mid"]);
+                shuffle($tiles["low"]);
                 $slice = new Slice([
                     $tiles['high'][$i],
                     $tiles['mid'][$i],
@@ -133,9 +133,10 @@ class Generator
         shuffle($tiles['red']);
 
         if ($config->raw_four_map) {
-            shuffle(array_merge($tiles['high'], $tiles['mid'], $tiles['low']));
+            $blue_tiles = array_merge($tiles['high'], $tiles['mid'], $tiles['low']);
+            shuffle($blue_tiles);
             $selection = [
-                'high' => array_slice($tiles["high"], 0, 20),
+                'high' => array_slice($blue_tiles, 0, 20),
                 'red' => array_slice($tiles["red"], 0, 12),
             ];
             $all = array_merge($selection["high"], $selection["red"]);

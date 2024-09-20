@@ -54,8 +54,10 @@ class GeneratorConfig
             $this->include_discordant = get('include_discordant') == true;
             $this->include_discordantexp = get('include_discordantexp') == true;
             $this->preset_draft_order = get('preset_draft_order', false) == true;
-            $this->raw_four_map = get('raw_four_map') == true;
-            if ((int) get('num_players') != 4) $this->raw_four_map = false;
+            if ((int) get('num_players') != 4 && get('raw_four_map')) {
+                $this->raw_four_map = true;
+                $this->num_slices = 4;
+            }
 
             $this->max_1_wormhole = get('max_wormhole') == true;
             $this->min_wormholes = (get('wormholes') == true) ? 2 : 0;
