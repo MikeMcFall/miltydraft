@@ -54,10 +54,7 @@ class GeneratorConfig
             $this->include_discordant = get('include_discordant') == true;
             $this->include_discordantexp = get('include_discordantexp') == true;
             $this->preset_draft_order = get('preset_draft_order', false) == true;
-            if ((int) get('num_players') != 4 && get('raw_four_map')) {
-                $this->raw_four_map = true;
-                $this->num_slices = 4;
-            }
+            $this->raw_four_map = ((int) get('num_players') == 4) ? get('raw_four_map') : false;
 
             $this->max_1_wormhole = get('max_wormhole') == true;
             $this->min_wormholes = (get('wormholes') == true) ? 2 : 0;
@@ -116,7 +113,9 @@ class GeneratorConfig
         if (count($this->players) > count(array_filter($this->players))) return_error('Some players names are not filled out');
         if (count(array_unique($this->players)) != count($this->players)) return_error('Players should all have unique names');
         if (!$this->include_pok && $this->num_slices > 5) return_error('Can only draft up to 5 slices without PoK. (And by extension you can only do drafts up to 5 players)');
+        if (!$this->include_pok && $this->num_slices > 4 && $this->raw_four_map) return_error('Can only draft up to 4 slices without PoK and RAW setup');
         if (!$this->include_ds_tiles && $this->num_slices > 9) return_error('Can only draft up to 9 slices without DS+ Tiles.');
+        if (!$this->include_ds_tiles && $this->num_slices > 7 && $this->raw_four_map) return_error('Can only draft up to 9 slices without DS+ Tiles. and RAW setup');
         if (count($this->players) < 3) return_error('Please enter at least 3 players');
         if ($this->num_factions < count($this->players)) return_error("Can't have fewer factions than players");
         if ($this->num_slices < count($this->players)) return_error("Can't have fewer slices than players");

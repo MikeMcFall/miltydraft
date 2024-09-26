@@ -70,6 +70,10 @@ class Generator
         // reshuffle
         shuffle($tiles["high"]);
         shuffle($tiles["red"]);
+        if (!$config->raw_four_map) {
+            shuffle($tiles["mid"]);
+            shuffle($tiles["low"]);
+        }
 
         for ($i = 0; $i < $config->num_slices; $i++) {
             // grab some tiles
@@ -86,8 +90,6 @@ class Generator
                     $tiles['red'][(3 * $i) + 2],
                 ]);
             } else {
-                shuffle($tiles["mid"]);
-                shuffle($tiles["low"]);
                 $slice = new Slice([
                     $tiles['high'][$i],
                     $tiles['mid'][$i],
@@ -136,8 +138,8 @@ class Generator
             $blue_tiles = array_merge($tiles['high'], $tiles['mid'], $tiles['low']);
             shuffle($blue_tiles);
             $selection = [
-                'high' => array_slice($blue_tiles, 0, 20),
-                'red' => array_slice($tiles["red"], 0, 12),
+                'high' => array_slice($blue_tiles, 0, $config->num_slices * 5),
+                'red' => array_slice($tiles["red"], 0, $config->num_slices * 3),
             ];
             $all = array_merge($selection["high"], $selection["red"]);
         } else {
@@ -157,7 +159,7 @@ class Generator
         $counts = Tile::countSpecials($all);
 
         // validate against minimums
-        if ($counts["alpha"] < $config->min_wormholes || $counts["beta"] < $config->min_wormholes || $counts["legendary"] < $config->min_legendaries) {
+        if ($counts["alpha"] < 2 || $counts["beta"] < 2 || $counts["legendary"] < $config->min_legendaries) {
             // try again
             return self::select_tiles($tiles, $config, $previous_tries + 1);
         } else {
