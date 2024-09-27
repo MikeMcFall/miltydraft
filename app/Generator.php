@@ -159,7 +159,7 @@ class Generator
         $counts = Tile::countSpecials($all);
 
         // validate against minimums
-        if ($counts["alpha"] < 2 || $counts["beta"] < 2 || $counts["legendary"] < $config->min_legendaries) {
+        if ($counts["alpha"] < $config->min_wormholes || $counts["beta"] < $config->min_wormholes || $counts["legendary"] < $config->min_legendaries) {
             // try again
             return self::select_tiles($tiles, $config, $previous_tries + 1);
         } else {
